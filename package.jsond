@@ -1,33 +1,25 @@
 {
   "name": "devconnector",
   "version": "1.0.0",
-  "description": "",
+  "description": "social network",
   "main": "server.js",
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
-    "client": "npm start --prefix client",
+    "client": "npm start --prefixclient",
     "dev": "concurrently \"npm run server \" \"npm run client \""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ismailAmim/devconnector.git"
-  },
-  "author": "ismail amimour",
+  "author": "ismail",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ismailAmim/devconnector/issues"
-  },
-  "homepage": "https://github.com/ismailAmim/devconnector#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "config": "^3.2.5",
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.1",
-    "request": "^2.88.2"
+    "mongoose": "^5.8.11",
+    "request": "^2.88.0",
+    "uninstall-all-modules": "^1.0.5"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
