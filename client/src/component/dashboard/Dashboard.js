@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { getCurrentProfile } from '../../actions/profile'
 import Spinner from '../layout/Spinner'
+import DashboardActions from './DashboardActions';
 
 const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, loading } }) => {
 
 	useEffect(() => {
 		getCurrentProfile()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return loading && profile === null ? <Spinner />
 		: <Fragment>
@@ -18,7 +20,9 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
 			</p>
 			{
 				profile !== null
-					? (<Fragment>has</Fragment>)
+					? (<Fragment>
+						<DashboardActions />
+					</Fragment>)
 					: (<Fragment><p>You have not setup a profile , please add some info</p>
 						<Link to="/create-profile" className="btn btn-primary my-l" >Create Profile</Link> </Fragment>)
 			}
