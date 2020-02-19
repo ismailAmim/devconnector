@@ -5,6 +5,11 @@ const ProfileSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     },
+    handle: {
+        type: String,
+        required: true,
+        max: 40
+    },
     company: {
         type: String
     },
@@ -32,6 +37,10 @@ const ProfileSchema = new mongoose.Schema({
 
 
         title: {
+            type: String,
+            required: true
+        },
+        company: {
             type: String,
             required: true
         },

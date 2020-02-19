@@ -63,7 +63,7 @@ const EditProfile = ({
 	const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = e => {
 		e.preventDefault();
-		createProfile(formData, history)
+		createProfile(formData, history, true);
 	}
 	return (
 		<Fragment>
@@ -173,7 +173,7 @@ const EditProfile = ({
 					</Fragment>)}
 
 				<input type="submit" className="btn btn-primary my-1" />
-				<a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
+				<Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
 			</form>
 		</Fragment>
 	)
