@@ -6,6 +6,7 @@ const request = require('request');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 const jwt = require('jsonwebtoken');
 const config = require('config');
@@ -40,13 +41,13 @@ router.get('/me', auth, async (req, res) => {
 // @desc        create or update  users profile
 // @access      private
 router.post('/', [auth, [
-        check('status', 'status is required')
+    check('status', 'status is required')
         .not()
         .isEmpty(),
-        check('skills', 'skills is required')
+    check('skills', 'skills is required')
         .not()
         .isEmpty()
-    ]],
+]],
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -170,13 +171,18 @@ router.get('/user/:user_id', async (req, res) => {
 router.delete('/', async (req, res) => {
 
     try {
+
+        // Todo Remove user posts
+        await Post.DeleMany({
+            user: req.user.id
+        });
         // remove profile 
         await Profile.findOneAndRemove({
-            user: req.user_id
+            user: req.user.id
         });
         // remove user 
         await User.findOneAndRemove({
-            _id: req.user_id
+            _id: req.user.id
         });
 
         res.json("User deleted");
@@ -192,14 +198,14 @@ router.delete('/', async (req, res) => {
 
 router.put('/experience', [auth, [
     check('title', 'Title is required ')
-    .not()
-    .isEmpty(),
+        .not()
+        .isEmpty(),
     check('company', 'company is required ')
-    .not()
-    .isEmpty(),
+        .not()
+        .isEmpty(),
     check('from', 'from is required ')
-    .not()
-    .isEmpty()
+        .not()
+        .isEmpty()
 
 ]], async (req, res) => {
     const errors = validationResult(req);
@@ -273,20 +279,20 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 
 router.put('/education', [auth, [
     check('school', 'is required ')
-    .not()
-    .isEmpty(),
+        .not()
+        .isEmpty(),
     check('degree', 'degree is required ')
-    .not()
-    .isEmpty(),
+        .not()
+        .isEmpty(),
     check('fieldofstudy', 'field of study is required ')
-    .not()
-    .isEmpty(),
+        .not()
+        .isEmpty(),
     check('from', 'from is required ')
-    .not()
-    .isEmpty(),
+        .not()
+        .isEmpty(),
     check('Title', 'Title is required ')
-    .not()
-    .isEmpty()
+        .not()
+        .isEmpty()
 
 ]], async (req, res) => {
     const errors = validationResult(req);
@@ -366,9 +372,9 @@ router.get('/github/:username', (req, res) => {
         const options = {
             url: `https://api.github.com/users/${
                 req.params.username
-            }/repos?per_page=5&sort=created:asc&client_id=${
+                }/repos?per_page=5&sort=created:asc&client_id=${
                 config.get('githubClientId')
-            }&client_secret =${config.get('githubSeret')}`,
+                }&client_secret =${config.get('githubSeret')}`,
             method: 'GET',
             headers: {
                 'user-agent': 'node.js'
