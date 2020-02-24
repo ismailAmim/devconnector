@@ -173,7 +173,7 @@ router.delete('/', async (req, res) => {
     try {
 
         // Todo Remove user posts
-        await Post.DeleMany({
+        await Post.DeleteMany({
             user: req.user.id
         });
         // remove profile 

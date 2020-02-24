@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Link, withRouter } from 'react-router-dom'
+import { Link/* , withRouter */ } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addEducation } from '../../actions/profile';
 const AddEducation = ({ addEducation, history }) => {
@@ -47,8 +47,8 @@ const AddEducation = ({ addEducation, history }) => {
       </p>
 			<small>* = required field</small>
 			<form class="form" onSubmit={e => {
-				e =>
-					e.preventDefault();
+
+				e.preventDefault();
 				addEducation(formData, history);
 			}}>
 				<div class="form-group">

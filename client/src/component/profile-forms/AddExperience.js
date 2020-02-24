@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Link, withRouter } from 'react-router-dom'
+import { Link/* , withRouter */ } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addExperience } from '../../actions/profile';
+import { addExperience/* , createProfile */ } from '../../actions/profile';
 const AddExperience = ({ addExperience, history }) => {
 
 	const [formData, setFormData] = useState({
@@ -34,10 +34,10 @@ const AddExperience = ({ addExperience, history }) => {
 	} */
 
 	const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
-	const onSubmit = e => {
+	/* const onSubmit = e => {
 		e.preventDefault();
 		createProfile(formData, history);
-	}
+	} */
 	return (
 		<Fragment>
 			<h1 class="large text-primary">
@@ -47,10 +47,10 @@ const AddExperience = ({ addExperience, history }) => {
 				<i class="fas fa-code-branch"></i> Add any developer/programming
 				positions that you have had in the past
       </p>
-			<small>* = required field</small>
+			<small> required field</small>
 			<form class="form" onSubmit={e => {
-				e =>
-					e.preventDefault();
+
+				e.preventDefault();
 				addExperience(formData, history);
 			}}>
 				<div class="form-group">

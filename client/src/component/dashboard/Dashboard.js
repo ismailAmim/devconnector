@@ -17,7 +17,7 @@ const Dashboard = ({
 	useEffect(() => {
 		getCurrentProfile()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [getCurrentProfile]);
 	return loading && profile === null ? <Spinner />
 		: <Fragment>
 			<h1 className="large text-primary">Dashboard</h1>

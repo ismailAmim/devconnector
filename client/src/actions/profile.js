@@ -5,8 +5,9 @@ import {
 	PROFILE_ERROR,
 	UPDATE_PROFILE,
 	ACCOUNT_DELETE,
+	GET_REPOS,
 	CLEAR_PROFILE
-} from '../actions/types';
+} from './types';
 import { setAlert } from './alert';
 
 // Get current users profile 
@@ -213,7 +214,7 @@ export const deleteEducation = id => async dispatch => {
 export const deleteAccount = async dispatch => {
 	if (window.confirm('Are you sure? This will remove files')) {
 		try {
-			const res = await axios.delete(`/api/profile`);
+			await axios.delete(`/api/profile`);
 			dispatch({ type: CLEAR_PROFILE });
 			dispatch({ type: ACCOUNT_DELETE });
 
