@@ -3,7 +3,8 @@ import {
 	GET_POSTS,
 	POST_ERROR,
 	UPDATE_LIKES,
-	DELETE_POSTS
+	DELETE_POSTS,
+	ADD_POSTS
 } from './types';
 import { setAlert } from './alert';
 
@@ -71,4 +72,25 @@ export const deletePost = postId => async dispatch => {
 	}
 }
 
+// add POST
+export const addPost = formData => async dispatch => {
+	try {
+		const config = {
+			headers: {
+				'Content-Type': "application/josn"
+			}
+		}
+		const res = await axios.post(`/api/posts`, formData, config);
+		dispatch({
+			type: ADD_POSTS,
+			payload: res.data
+		})
+		dispatch(setAlert('Post Added', 'success'));
+	} catch (err) {
+		dispatch({
+			type: POST_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status }
+		});
+	}
+}
 
