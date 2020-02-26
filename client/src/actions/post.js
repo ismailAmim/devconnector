@@ -1,30 +1,17 @@
 import axios from 'axios';
 import {
 	GET_POSTS,
-	POST_ERROR
+	POST_ERROR,
+	UPDATE_LIKES,
+	DELETE_POSTS
 } from './types';
 import { setAlert } from './alert';
 
-// Get current users profile 
-export const getCurrentProfile = () => async dispatch => {
 
-	try {
-		const res = await axios.get('/api/profile/me');
-		dispatch({
-			type: GET_PROFILE,
-			payload: res.data
-		})
-	} catch (err) {
-		dispatch({
-			type: PROFILE_ERROR,
-			payload: { msg: err.response.statusText, status: err.response.status }
-		});
-	}
-}
-// Get all profiles
+// Get all posts
 export const getPosts = () => async dispatch => {
 	try {
-		const res = await axios.get('/api/post');
+		const res = await axios.get('/api/posts');
 		dispatch({
 			type: GET_POSTS,
 			payload: res.data
@@ -36,37 +23,52 @@ export const getPosts = () => async dispatch => {
 		});
 	}
 }
-
-// Get profile by Id
-export const getProfileById = userId => async dispatch => {
-
+// Add like
+export const addLike = postId => async dispatch => {
 	try {
-		const res = await axios.get(`/api/profile/user/${userId}`);
+		const res = await axios.put(`/api/posts/like/${postId}`);
 		dispatch({
-			type: GET_PROFILE,
-			payload: res.data
+			type: UPDATE_LIKES,
+			payload: { postId, likes: res.data }
 		})
 	} catch (err) {
 		dispatch({
-			type: PROFILE_ERROR,
+			type: POST_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status }
+		});
+	}
+}
+// Remove like
+export const removeLike = postId => async dispatch => {
+	try {
+		const res = await axios.put(`/api/posts/unlike/${postId}`);
+		dispatch({
+			type: UPDATE_LIKES,
+			payload: { postId, likes: res.data }
+		})
+	} catch (err) {
+		dispatch({
+			type: POST_ERROR,
 			payload: { msg: err.response.statusText, status: err.response.status }
 		});
 	}
 }
 
-// Get githubRpos
-export const getGithubRpos = username => async dispatch => {
-
+// DELETE POST
+export const deletePost = postId => async dispatch => {
 	try {
-		const res = await axios.get(`/api/profile/github/${username}`);
+		await axios.delete(`/api/posts/${postId}`);
 		dispatch({
-			type: GET_REPOS,
-			payload: res.data
+			type: DELETE_POSTS,
+			payload: postId
 		})
+		dispatch(setAlert('Post Removed', 'success'));
 	} catch (err) {
 		dispatch({
-			type: PROFILE_ERROR,
+			type: POST_ERROR,
 			payload: { msg: err.response.statusText, status: err.response.status }
 		});
 	}
 }
+
+

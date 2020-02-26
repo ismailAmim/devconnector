@@ -14,7 +14,7 @@ import AddExperience from './component/profile-forms/AddExperience';
 import AddEducation from './component/profile-forms/AddEducation';
 import Profiles from './component/profiles/Profiles';
 import Profile from './component/profile/Profile';
-import Posts from './component/profile/Posts';
+import Posts from './component/posts/Posts';
 
 // Redux 
 import { Provider } from 'react-redux';
