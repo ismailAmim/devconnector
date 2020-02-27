@@ -1,4 +1,11 @@
-import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POSTS, ADD_POSTS } from '../actions/types';
+import {
+	GET_POSTS,
+	POST_ERROR,
+	UPDATE_LIKES,
+	DELETE_POSTS,
+	ADD_POSTS,
+	GET_POST
+} from '../actions/types';
 const initialState = {
 	posts: [],
 	post: null,
@@ -15,6 +22,12 @@ export default function (state = initialState, action) {
 				posts: payload,
 				loading: false
 			};
+		case GET_POST:
+			return {
+				...state,
+				post: payload,
+				loading: false
+			}
 
 		case ADD_POSTS:
 			return {
