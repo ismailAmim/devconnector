@@ -32,7 +32,7 @@ const CommentItem = ({
 						onClick={e => deleteComment(postId, _id)}
 						type="button"
 						className="btn btn-danger"
-					></button>
+					><i className="fas fa-times"></i></button>
 					)
 				</div>
 			</div>
