@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 const passport = require('passport');
 
 //  models
@@ -46,7 +46,7 @@ router.post(
 	(req, res) => {
 		const { errors, isValid } = validatePostInput(req.body);
 
-		if (!isValid) return res.status(404).json(errors);
+		if (!isValid) return res.status(400).json(errors);
 
 		const newPost = new Post({
 			text: req.body.text,
@@ -97,8 +97,8 @@ router.post(
 						if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
 
 							return res
-								.status(404)
-								.json({ alreadyliked: 'User already' });
+								.status(400)
+								.json({ alreadyliked: 'User already liked this post' });
 						}
 						// add user id to likes array
 						post.likes.unshift({ user: req.user.id });
@@ -123,7 +123,7 @@ router.post(
 						if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
 
 							return res
-								.status(404)
+								.status(400)
 								.json({ notliked: 'You have not yet liked this post' });
 						}
 						//get remove index
@@ -150,7 +150,7 @@ router.post(
 		const { errors, isValid } = validatePostInput(req.body);
 		// check validation
 		if (!isValid) {
-			return res.status(404).json(errors);
+			return res.status(400).json(errors);
 		}
 
 		Post.findById(req.params.id)
@@ -186,7 +186,9 @@ router.delete(
 			.then(post => {
 				// check if comments exists
 				if (post.comments.filter(comment => comment._id.toString() === req.params.comment_id).length === 0) {
-					return res.status(404).json({ commentnotexists: 'Comment does not exist' });
+					return res
+						.status(404)
+						.json({ commentnotexists: 'Comment does not exist' });
 				}
 
 				//Get remove index
