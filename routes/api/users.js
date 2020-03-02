@@ -3,14 +3,19 @@ const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const keys = require('../../config/keys');
 /* const config = require('config');
 const {
     check,
     validationResult
 } = require('express-validator'); */
 
-const keys = require('../../config/keys');
+
+
 const validateLoginInput = require('../../validation/login');
+const validateRegisterInput = require('../../validation/register');
+
 
 const User = require('../../models/User');
 
@@ -23,7 +28,7 @@ router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 // @desc    Register user
 // @access  Public
 router.post('/register', (req, res) => {
-    const { errors, isValid } = validateLoginInput(req.body);
+    const { errors, isValid } = validateRegisterInput(req.body);
 
     //check validation 
     if (!isValid) {
@@ -42,7 +47,7 @@ router.post('/register', (req, res) => {
                     d: 'mm' //Default
                 });
                 const newUser = new User({
-                    name: req.body.name,
+                    fname: req.body.name,
                     email: req.body.email,
                     avatar,
                     password: req.body.password
@@ -67,7 +72,8 @@ router.post('/register', (req, res) => {
 // @desc    Login User / Returning JWT Token
 // @access  Public
 
-router.post('login',
+router.post(
+    '/login',
     (req, res) => {
         const { errors, isValid } = validateLoginInput(req.body);
         //check validation
@@ -124,7 +130,7 @@ router.get(
     (req, res) => {
         res.json({
             id: req.user.id,
-            name: req.user.name,
+            fname: req.user.name,
             email: req.user.email
         });
     }

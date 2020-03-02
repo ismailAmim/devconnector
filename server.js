@@ -6,7 +6,7 @@ const passport = require('passport');
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
-const auth = require('./routes/api/auth');
+//const auth = require('./routes/api/auth');
 
 //const connectDB = require('./config/db');
 
@@ -33,7 +33,14 @@ const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
 mongoose
-    .connect(db)
+    .connect(
+        db,
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true,
+        }
+    )
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 
@@ -47,7 +54,7 @@ require('./config/passport')(passport);
 // Define Routes
 app.use('/api/users', users);
 app.use('/api/profile', profile);
-app.use('/api/auth', auth);
+//app.use('/api/auth', auth);
 app.use('/api/posts', posts);
 
 // Define Routes

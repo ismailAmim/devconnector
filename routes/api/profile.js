@@ -1,8 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 // const auth = require('../../middleware/auth');
 
 // const request = require('request');
+const validateProfileInput = require('../../validation/profile');
+const validateExperienceInput = require('../../validation/experience');
+const validateEducationInput = require('../../validation/education');
+
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
