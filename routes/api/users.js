@@ -10,19 +10,19 @@ const {
     check,
     validationResult
 } = require('express-validator'); */
-
-
-
 const validateLoginInput = require('../../validation/login');
 const validateRegisterInput = require('../../validation/register');
-
-
 const User = require('../../models/User');
 
 // @route   GET api/users/test
 // @desc    Tests users route
 // @access  Public
+
 router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
+
+router.get('/', (req, res) => res.json({ msg: 'users router' }));
+
+
 
 // @route   POST api/users/register
 // @desc    Register user
